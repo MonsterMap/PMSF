@@ -2078,7 +2078,7 @@ function showGymDetails(id) { // eslint-disable-line no-unused-vars
         if (result.team_id !== 0) {
             gymLevelStr =
                 '<center class="team-' + result.team_id + '-text">' +
-                '<b class="team-' + result.team_id + '-text">' + freeSlots + ' ' + i8ln('Free Slots') + '</b>' +
+                '<b class="team-' + result.team_id + '-text">' + freeSlots + ' ' + (freeSlots === 1 ? i8ln('Free Slot') : i8ln('Free Slots')) + '</b>' +
                 '</center>'
         }
 
