@@ -168,6 +168,8 @@ class Monocle_Alternate extends Monocle
 
     public function get_gym($gymId)
     {
+        global $noDefenderStats;
+
         $conds = array();
         $params = array();
 
@@ -183,6 +185,7 @@ class Monocle_Alternate extends Monocle
             $select .= ", gd.owner_name AS trainer_name";
         }
         $gym["pokemon"] = $this->query_gym_defenders($gymId, $select);
+        $gym["defender_stats"] = !$noDefenderStats;
         return $gym;
     }
 
@@ -277,6 +280,7 @@ class Monocle_Alternate extends Monocle
     private function query_gym_defenders($gymId, $select)
     {
         global $db;
+        global $noDefenderStats;
 
 
         $query = "SELECT :select
@@ -298,21 +302,24 @@ class Monocle_Alternate extends Monocle
             } else {
                 $defender["pokemon_name"] = i8ln($this->data[$pid]["name"]);
             }
-            $defender["iv_attack"] = floatval($defender["iv_attack"]);
-            $defender["iv_defense"] = floatval($defender["iv_defense"]);
-            $defender["iv_stamina"] = floatval($defender["iv_stamina"]);
 
-            $defender['move_1_name'] = i8ln($this->moves[$defender['move_1']]['name']);
-            $defender['move_1_damage'] = $this->moves[$defender['move_1']]['damage'];
-            $defender['move_1_energy'] = $this->moves[$defender['move_1']]['energy'];
-            $defender['move_1_type']['type'] = i8ln($this->moves[$defender['move_1']]['type']);
-            $defender['move_1_type']['type_en'] = $this->moves[$defender['move_1']]['type'];
+            if (!$noDefenderStats) {
+                $defender["iv_attack"] = floatval($defender["iv_attack"]);
+                $defender["iv_defense"] = floatval($defender["iv_defense"]);
+                $defender["iv_stamina"] = floatval($defender["iv_stamina"]);
 
-            $defender['move_2_name'] = i8ln($this->moves[$defender['move_2']]['name']);
-            $defender['move_2_damage'] = $this->moves[$defender['move_2']]['damage'];
-            $defender['move_2_energy'] = $this->moves[$defender['move_2']]['energy'];
-            $defender['move_2_type']['type'] = i8ln($this->moves[$defender['move_2']]['type']);
-            $defender['move_2_type']['type_en'] = $this->moves[$defender['move_2']]['type'];
+                $defender['move_1_name'] = i8ln($this->moves[$defender['move_1']]['name']);
+                $defender['move_1_damage'] = $this->moves[$defender['move_1']]['damage'];
+                $defender['move_1_energy'] = $this->moves[$defender['move_1']]['energy'];
+                $defender['move_1_type']['type'] = i8ln($this->moves[$defender['move_1']]['type']);
+                $defender['move_1_type']['type_en'] = $this->moves[$defender['move_1']]['type'];
+
+                $defender['move_2_name'] = i8ln($this->moves[$defender['move_2']]['name']);
+                $defender['move_2_damage'] = $this->moves[$defender['move_2']]['damage'];
+                $defender['move_2_energy'] = $this->moves[$defender['move_2']]['energy'];
+                $defender['move_2_type']['type'] = i8ln($this->moves[$defender['move_2']]['type']);
+                $defender['move_2_type']['type_en'] = $this->moves[$defender['move_2']]['type'];
+            }
 
             $data[] = $defender;
 

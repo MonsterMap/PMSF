@@ -98,6 +98,7 @@ $noGyms = false;                                                    // true/fals
 $enableGyms = 'false';                                              // true/false
 $noGymSidebar = false;                                              // true/false
 $gymSidebar = 'true';                                               // true/false
+$noDefenderStats = false;                                           // true/false
 $noTrainerName = false;                                             // true/false
 
 $noRaids = false;                                                   // true/false

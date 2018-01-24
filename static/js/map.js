@@ -2162,8 +2162,12 @@ function showGymDetails(id) { // eslint-disable-line no-unused-vars
                 var perfectPercent = getIv(pokemon.iv_attack, pokemon.iv_defense, pokemon.iv_stamina)
                 var moveEnergy = Math.round(100 / pokemon.move_2_energy)
 
+                if (result['defender_stats']) {
+                    pokemonHtml += '<tr onclick=toggleGymPokemonDetails(this)>'
+                } else {
+                    pokemonHtml += '<tr>'
+                }
                 pokemonHtml +=
-                    '<tr onclick=toggleGymPokemonDetails(this)>' +
                     '<td width="30px">' +
                     '<i class="pokemon-sprite n' + pokemon.pokemon_id + '"></i>' +
                     '</td>' +
@@ -2180,71 +2184,73 @@ function showGymDetails(id) { // eslint-disable-line no-unused-vars
                     pokemonHtml +=
                         '<div style="line-height: 1em">' + pokemon.trainer_name + '</div>'
                 }
-                pokemonHtml +=
-                    '</td>' +
-                    '<td width="10">' +
-                    '<!--<a href="#" onclick="toggleGymPokemonDetails(this)">-->' +
-                    '<i class="team-' + result.team_id + '-text fa fa-angle-double-down"></i>' +
-                    '<!--</a>-->' +
-                    '</td>' +
-                    '</tr>' +
-                    '<tr class="details">' +
-                    '<td colspan="2">' +
-                    '<div class="ivs">' +
-                    '<div class="iv">' +
-                    '<div class="type">ATK</div>' +
-                    '<div class="value">' +
-                    pokemon.iv_attack +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="iv">' +
-                    '<div class="type">DEF</div>' +
-                    '<div class="value">' +
-                    pokemon.iv_defense +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="iv">' +
-                    '<div class="type">STA</div>' +
-                    '<div class="value">' +
-                    pokemon.iv_stamina +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="iv" style="width: 36px">' +
-                    '<div class="type">PERFECT</div>' +
-                    '<div class="value">' +
-                    perfectPercent.toFixed(0) + '' +
-                    '<span style="font-size: .6em">%</span>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</td>' +
-                    '<td colspan="2">' +
-                    '<div class="moves">' +
-                    '<div class="move">' +
-                    '<div class="name">' +
-                    pokemon.move_1_name +
-                    ' <div class="type ' + pokemon.move_1_type.type_en.toLowerCase() + '">' + pokemon.move_1_type.type + '</div>' +
-                    '</div>' +
-                    '<div class="damage">' +
-                    pokemon.move_1_damage +
-                    '</div>' +
-                    '</div>' +
-                    '<br>' +
-                    '<div class="move">' +
-                    '<div class="name">' +
-                    pokemon.move_2_name +
-                    ' <div class="type ' + pokemon.move_2_type.type_en.toLowerCase() + '">' + pokemon.move_2_type.type + '</div>' +
-                    '<div>' +
-                    '<i class="move-bar-sprite move-bar-sprite-' + moveEnergy + '"></i>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="damage">' +
-                    pokemon.move_2_damage +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</td>' +
-                    '</tr>'
+                pokemonHtml += '</td>'
+                if (result['defender_stats']) {
+                    pokemonHtml +=
+                        '<td width="10">' +
+                        '<!--<a href="#" onclick="toggleGymPokemonDetails(this)">-->' +
+                        '<i class="team-' + result.team_id + '-text fa fa-angle-double-down"></i>' +
+                        '<!--</a>-->' +
+                        '</td>' +
+                        '</tr>' +
+                        '<tr class="details">' +
+                        '<td colspan="2">' +
+                        '<div class="ivs">' +
+                        '<div class="iv">' +
+                        '<div class="type">ATK</div>' +
+                        '<div class="value">' +
+                        pokemon.iv_attack +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="iv">' +
+                        '<div class="type">DEF</div>' +
+                        '<div class="value">' +
+                        pokemon.iv_defense +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="iv">' +
+                        '<div class="type">STA</div>' +
+                        '<div class="value">' +
+                        pokemon.iv_stamina +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="iv" style="width: 36px">' +
+                        '<div class="type">PERFECT</div>' +
+                        '<div class="value">' +
+                        perfectPercent.toFixed(0) + '' +
+                        '<span style="font-size: .6em">%</span>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td colspan="2">' +
+                        '<div class="moves">' +
+                        '<div class="move">' +
+                        '<div class="name">' +
+                        pokemon.move_1_name +
+                        ' <div class="type ' + pokemon.move_1_type.type_en.toLowerCase() + '">' + pokemon.move_1_type.type + '</div>' +
+                        '</div>' +
+                        '<div class="damage">' +
+                        pokemon.move_1_damage +
+                        '</div>' +
+                        '</div>' +
+                        '<br>' +
+                        '<div class="move">' +
+                        '<div class="name">' +
+                        pokemon.move_2_name +
+                        ' <div class="type ' + pokemon.move_2_type.type_en.toLowerCase() + '">' + pokemon.move_2_type.type + '</div>' +
+                        '<div>' +
+                        '<i class="move-bar-sprite move-bar-sprite-' + moveEnergy + '"></i>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="damage">' +
+                        pokemon.move_2_damage +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</td>'
+                }
+                pokemonHtml += '</tr>'
             })
 
             pokemonHtml = '<table><tbody>' + pokemonHtml + '</tbody></table>'
