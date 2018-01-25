@@ -1061,7 +1061,7 @@ var StoreOptions = {
         },
     'zoomLevel':
         {
-            default: 16,
+            default: 14,
             type: StoreTypes.Number
         },
     'spritefile':
