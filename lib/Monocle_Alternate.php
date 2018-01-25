@@ -296,7 +296,7 @@ class Monocle_Alternate extends Monocle
 
         foreach ($gym_defenders as $defender) {
             $pid = $defender["pokemon_id"];
-            if ($defender['nickname']) {
+            if ($defender['nickname'] && !$noDefenderStats) {
                 // If defender has nickname, eg Pippa, put it alongside poke
                 $defender["pokemon_name"] = i8ln($this->data[$pid]["name"]) . "<br><small style='font-size: 70%;'>(" . $defender['nickname'] . ")</small>";
             } else {
