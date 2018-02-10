@@ -104,6 +104,9 @@
     "mapType": true,
     "triggerGyms": true,
     "i8ln": false,
-    "languageSite": true
+    "languageSite": true,
+    "maxBoundsEnabled": true,
+    "maxBoundsSW": true,
+    "maxBoundsNE": true
   }
 }

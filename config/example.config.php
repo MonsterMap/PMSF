@@ -22,6 +22,12 @@ use Medoo\Medoo;
 $startingLat = 41.771822;                                           // Starting latitude
 $startingLng = -87.8549371;                                         // Starting longitude
 
+/* Max Bounds Settings */
+
+$maxBoundsEnabled = "false";                                        // Limit the map to a certain area
+$maxBoundsNE = "[0.0, 0.0]";                                        // NE corner of the area
+$maxBoundsSW = "[0.0, 0.0]";                                        // SW corner of the area
+
 /* Anti scrape Settings */
 
 $maxLatLng = 1;                                                     // Max latitude and longitude size (1 = ~110km, 0 to disable)

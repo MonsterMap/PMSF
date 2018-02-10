@@ -764,6 +764,9 @@ if ($blockIframe) {
 <script>
     var centerLat = <?= $startingLat; ?>;
     var centerLng = <?= $startingLng; ?>;
+    var maxBoundsEnabled = <?= $maxBoundsEnabled; ?>;
+    var maxBoundsNE = <?= $maxBoundsNE; ?>;
+    var maxBoundsSW = <?= $maxBoundsSW; ?>;
     var locationSet = <?= $locationSet; ?>;
     var zoom<?php echo $zoom ? " = " . $zoom : null; ?>;
     var minZoom = <?= $maxZoomOut; ?>;

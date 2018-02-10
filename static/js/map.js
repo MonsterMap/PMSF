@@ -178,6 +178,49 @@ function initMap() { // eslint-disable-line no-unused-vars
         }
     })
 
+    if (maxBoundsEnabled) {
+        /***
+            (c) by <HenningJ and Koen at Stack Overflow>
+
+            This snippet is licensed under the
+            Creative Commons Attribution-ShareAlike 3.0 Unported License.
+
+            You should have received a copy of the license along with this
+            work. If not, see <http://creativecommons.org/licenses/by-sa/3.0/>.
+
+            Source: https://stackoverflow.com/a/16939440
+        ***/
+        var maxBounds = new google.maps.LatLngBounds(
+            new google.maps.LatLng(maxBoundsSW[0], maxBoundsSW[1]),
+            new google.maps.LatLng(maxBoundsNE[0], maxBoundsNE[1])
+        )
+        var boundLimits = {
+            maxLat: maxBounds.getNorthEast().lat(),
+            maxLng: maxBounds.getNorthEast().lng(),
+            minLat: maxBounds.getSouthWest().lat(),
+            minLng: maxBounds.getSouthWest().lng()
+        }
+
+        var lastValidCenter = map.getCenter()
+        var newLat, newLng
+        google.maps.event.addListener(map, 'center_changed', function () {
+            var center = map.getCenter()
+            if (maxBounds.contains(center)) {
+                lastValidCenter = map.getCenter()
+                return
+            }
+            newLat = lastValidCenter.lat()
+            newLng = lastValidCenter.lng()
+            if (center.lng() > boundLimits.minLng && center.lng() < boundLimits.maxLng) {
+                newLng = center.lng()
+            }
+            if (center.lat() > boundLimits.minLat && center.lat() < boundLimits.maxLat) {
+                newLat = center.lat()
+            }
+            map.panTo(new google.maps.LatLng(newLat, newLng))
+        })
+    }
+
     var styleNoLabels = new google.maps.StyledMapType(noLabelsStyle, {
         name: 'No Labels'
     })
