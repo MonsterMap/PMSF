@@ -160,19 +160,6 @@ function initMap() { // eslint-disable-line no-unused-vars
             style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
             position: google.maps.ControlPosition.RIGHT_TOP,
             mapTypeIds: [
-                google.maps.MapTypeId.ROADMAP,
-                google.maps.MapTypeId.SATELLITE,
-                google.maps.MapTypeId.HYBRID,
-                'nolabels_style',
-                'dark_style',
-                'style_light2',
-                'style_pgo',
-                'dark_style_nl',
-                'style_light2_nl',
-                'style_pgo_nl',
-                'style_pgo_day',
-                'style_pgo_night',
-                'style_pgo_dynamic',
                 'osm'
             ]
         }
@@ -221,51 +208,6 @@ function initMap() { // eslint-disable-line no-unused-vars
         })
     }
 
-    var styleNoLabels = new google.maps.StyledMapType(noLabelsStyle, {
-        name: 'No Labels'
-    })
-    map.mapTypes.set('nolabels_style', styleNoLabels)
-
-    var styleDark = new google.maps.StyledMapType(darkStyle, {
-        name: 'Dark'
-    })
-    map.mapTypes.set('dark_style', styleDark)
-
-    var styleLight2 = new google.maps.StyledMapType(light2Style, {
-        name: 'Light2'
-    })
-    map.mapTypes.set('style_light2', styleLight2)
-
-    var stylePgo = new google.maps.StyledMapType(pGoStyle, {
-        name: 'PokemonGo'
-    })
-    map.mapTypes.set('style_pgo', stylePgo)
-
-    var styleDarkNl = new google.maps.StyledMapType(darkStyleNoLabels, {
-        name: 'Dark (No Labels)'
-    })
-    map.mapTypes.set('dark_style_nl', styleDarkNl)
-
-    var styleLight2Nl = new google.maps.StyledMapType(light2StyleNoLabels, {
-        name: 'Light2 (No Labels)'
-    })
-    map.mapTypes.set('style_light2_nl', styleLight2Nl)
-
-    var stylePgoNl = new google.maps.StyledMapType(pGoStyleNoLabels, {
-        name: 'PokemonGo (No Labels)'
-    })
-    map.mapTypes.set('style_pgo_nl', stylePgoNl)
-
-    var stylePgoDay = new google.maps.StyledMapType(pGoStyleDay, {
-        name: 'PokemonGo Day'
-    })
-    map.mapTypes.set('style_pgo_day', stylePgoDay)
-
-    var stylePgoNight = new google.maps.StyledMapType(pGoStyleNight, {
-        name: 'PokemonGo Night'
-    })
-    map.mapTypes.set('style_pgo_night', stylePgoNight)
-
     // OpenStreetMap support
     map.mapTypes.set('openstreetmap', new google.maps.ImageMapType({
         getTileUrl: function (coord, zoom) {
@@ -276,17 +218,11 @@ function initMap() { // eslint-disable-line no-unused-vars
         maxZoom: 18
     }))
 
-    // dynamic map style chooses stylePgoDay or stylePgoNight depending on client time
-    var currentDate = new Date()
-    var currentHour = currentDate.getHours()
-    var stylePgoDynamic = currentHour >= 6 && currentHour < 19 ? stylePgoDay : stylePgoNight
-    map.mapTypes.set('style_pgo_dynamic', stylePgoDynamic)
-
     map.addListener('maptypeid_changed', function (s) {
         Store.set('map_style', this.mapTypeId)
     })
 
-    map.setMapTypeId(Store.get('map_style'))
+    map.setMapTypeId('openstreetmap')
     map.addListener('idle', updateMap)
 
     map.addListener('zoom_changed', function () {
